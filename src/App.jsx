@@ -18,9 +18,35 @@ class App extends Component {
           username: "Anonymous",
           content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
         }
-      ]
+      ],
+      newMessage: ""
     };
+      this.composeNewMessage = this.composeNewMessage.bind(this)
   }
+
+  composeNewMessage(message) {
+    // debugger;
+
+    this.setState({
+      messages: this.state.messages.concat({
+        id: (this.state.messages.length + 1),
+        username: message.username,
+        content: message.content
+      })
+    })
+  }
+
+  componentDidMount() {
+    console.log("comnponentDidMount <App />");
+    setTimeout(() => {
+      console.log("Simulating incoming message");
+      // const newMessage = { id: 3, username: "Michelle", content: "Hello there"};
+      // const messages = this.state.messages.concat(newMessage)
+
+      // this.setState({ messages: messages})
+    }, 3000);
+  }
+
   render() {
     return (
       <div>
@@ -28,7 +54,7 @@ class App extends Component {
           <h1>Chatty</h1>
         </nav>
         <MessageList messages={this.state.messages} />
-        <ChatBar currentUser={this.state.currentUser} />
+        <ChatBar composeNewMessage={this.composeNewMessage} currentUser={this.state.currentUser} />
       </div>
     );
   }
