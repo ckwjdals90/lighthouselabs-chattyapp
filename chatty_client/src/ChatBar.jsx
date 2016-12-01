@@ -15,7 +15,7 @@ class ChatBar extends Component {
   }
 
   handleChangeUsername(event) {
-    this.setState({username: event.target.value})
+    this.setState({username: event.target.value ? event.target.value : "Anonymous"})
   }
 
   handleChangeMessage(event) {
