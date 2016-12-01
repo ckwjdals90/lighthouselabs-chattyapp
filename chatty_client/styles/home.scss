@@ -14,6 +14,12 @@ nav {
 }
 nav h1 {
   margin: 0;
+  float: left;
+}
+nav h5 {
+  margin: 0;
+  float: right;
+  line-height: 40px;
 }
 #message-list {
   height: calc(100vh - 131px);

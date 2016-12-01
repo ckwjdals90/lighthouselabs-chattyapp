@@ -15,7 +15,11 @@ class ChatBar extends Component {
 
   handleChangeUsername(event) {
     if (this.state.username !== event.target.value) {
-      this.props.changeUsername(this.state.username + " has changed their name to " + event.target.value);
+      if (event.target.value) {
+        this.props.changeUsername(this.state.username + " has changed their name to " + event.target.value);
+      } else {
+        this.props.changeUsername(this.state.username + " has changed their name to " + "Anonymous");
+      }
     }
     this.setState({username: event.target.value ? event.target.value : "Anonymous"})
   }

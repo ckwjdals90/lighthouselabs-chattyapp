@@ -8,7 +8,8 @@ class App extends Component {
     this.state = {
       messages: [],
       notification: "",
-      receivedMessage: ""
+      receivedMessage: "",
+      userCounter: ""
     };
     this.composeNewMessage = this.composeNewMessage.bind(this);
     this.changeUsername = this.changeUsername.bind(this);
@@ -33,10 +34,16 @@ class App extends Component {
           break;
 
         case "incomingNotification":
-        this.setState({
-          notification: receivedMessage.content
-        });
-        break;
+          this.setState({
+            notification: receivedMessage.content
+          });
+          break;
+
+        case "userCounter":
+          this.setState({
+            userCounter: receivedMessage.content
+          });
+          break;
 
         default:
           throw new Error("Unknown event type " + receivedMessage.type);
@@ -60,11 +67,13 @@ class App extends Component {
     }));
   }
 
+
   render() {
     return (
       <div>
         <nav>
           <h1>Chatty</h1>
+          <h5>{this.state.userCounter} users online</h5>
         </nav>
         <MessageList messages={this.state.messages} notification={this.state.notification} />
         <ChatBar composeNewMessage={this.composeNewMessage} changeUsername={this.changeUsername} />
