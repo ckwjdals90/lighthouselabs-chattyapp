@@ -7,9 +7,11 @@ class App extends Component {
     super(props);
     this.state = {
       messages: [],
+      notification: "",
       receivedMessage: ""
     };
-    this.composeNewMessage = this.composeNewMessage.bind(this)
+    this.composeNewMessage = this.composeNewMessage.bind(this);
+    this.changeUsername = this.changeUsername.bind(this);
   }
 
   componentDidMount() {
@@ -19,37 +21,43 @@ class App extends Component {
 
     this.socket.onmessage = (event) => {
       const receivedMessage = JSON.parse(event.data);
-      this.setState({
-        messages: this.state.messages.concat({
-          id: receivedMessage.id,
-          username: receivedMessage.username,
-          content: receivedMessage.content
-        })
-      })
-    }
+      switch(receivedMessage.type) {
+        case "incomingMessage":
+          this.setState({
+            messages: this.state.messages.concat({
+              id: receivedMessage.id,
+              username: receivedMessage.username,
+              content: receivedMessage.content
+            })
+          });
+          break;
 
+        case "incomingNotification":
+        this.setState({
+          notification: receivedMessage.content
+        });
+        break;
+
+        default:
+          throw new Error("Unknown event type " + receivedMessage.type);
+      }
+    }
   }
 
-  // composeNewMessage = message => {
-  //   this.setState({
-  //     messages: this.state.messages.concat({
-  //       id: (this.state.messages.length + 1),
-  //       username: message.username,
-  //       content: message.content
-  //     })
-  //   });
-  //   this.socket.send(JSON.stringify({ id: uuid.v1(), username: message.username, content: message.content }));
-  // }
-
   composeNewMessage = message => {
-    // const receivedMessage =
-    // this.setState({messages: this.state.messages.concat(receivedMessage)})
     this.socket.send(JSON.stringify({
+      type: "postMessage",
       username: message.username,
       content: message.content
     }));
+  }
 
-
+  changeUsername = notification => {
+    console.log(notification);
+    this.socket.send(JSON.stringify({
+      type: "postNotification",
+      content: notification
+    }));
   }
 
   render() {
@@ -58,8 +66,8 @@ class App extends Component {
         <nav>
           <h1>Chatty</h1>
         </nav>
-        <MessageList messages={this.state.messages} />
-        <ChatBar composeNewMessage={this.composeNewMessage} />
+        <MessageList messages={this.state.messages} notification={this.state.notification} />
+        <ChatBar composeNewMessage={this.composeNewMessage} changeUsername={this.changeUsername} />
       </div>
     );
   }

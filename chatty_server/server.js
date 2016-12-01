@@ -24,13 +24,30 @@ wss.on('connection', (ws) => {
   ws.on('message', (message) => {
     let parsedMessage = JSON.parse(message);
 
-    wss.clients.forEach((client) => {
-      client.send(JSON.stringify({
-        id: uuid.v1(),
-        username: parsedMessage.username,
-        content: parsedMessage.content
-      }));
-    })
+    switch(parsedMessage.type) {
+      case "postMessage":
+        wss.clients.forEach((client) => {
+          client.send(JSON.stringify({
+            type: "incomingMessage",
+            id: uuid.v1(),
+            username: parsedMessage.username,
+            content: parsedMessage.content
+          }));
+        });
+        break;
+
+      case "postNotification":
+      wss.clients.forEach((client) => {
+        client.send(JSON.stringify({
+          type: "incomingNotification",
+          content: parsedMessage.content
+        }));
+      });
+      break;
+
+      default:
+      throw new Error("Unknown event type " + parsedMessage.type);
+    }
   });
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => console.log('Client disconnected'));

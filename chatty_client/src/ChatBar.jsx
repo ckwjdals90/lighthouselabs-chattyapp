@@ -11,10 +11,12 @@ class ChatBar extends Component {
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangeMessage = this.handleChangeMessage.bind(this);
     this.enterMessage = this.enterMessage.bind(this);
-
   }
 
   handleChangeUsername(event) {
+    if (this.state.username !== event.target.value) {
+      this.props.changeUsername(this.state.username + " has changed their name to " + event.target.value);
+    }
     this.setState({username: event.target.value ? event.target.value : "Anonymous"})
   }
 
@@ -25,6 +27,7 @@ class ChatBar extends Component {
   enterMessage(event) {
     if (event.charCode==13) {
       this.props.composeNewMessage(this.state);
+      console.log(event.target.value);
       event.target.value = "";
     }
   }
@@ -32,18 +35,19 @@ class ChatBar extends Component {
   render() {
     return (
       <footer>
-        <form onKeyPress={this.enterMessage}>
-          <input onChange={this.handleChangeUsername}
-            id="username"
-            type="text"
-            placeholder="Your Name (Optional)"
-          />
-          <input onChange={this.handleChangeMessage}
+        <input
+          onBlur={this.handleChangeUsername}
+          id="username"
+          type="text"
+          placeholder="Your Name (Optional)"
+        />
+        <input
+          onChange={this.handleChangeMessage}
+          onKeyPress={this.enterMessage}
           id="new-message"
           type="text"
           placeholder="Type a message and hit ENTER"
-          />
-        </form>
+        />
       </footer>
     );
   }
