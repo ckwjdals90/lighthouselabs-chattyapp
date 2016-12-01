@@ -9,7 +9,8 @@ class App extends Component {
       messages: [],
       notification: "",
       receivedMessage: "",
-      userCounter: ""
+      userCounter: "",
+      colourScheme: ""
     };
     this.composeNewMessage = this.composeNewMessage.bind(this);
     this.changeUsername = this.changeUsername.bind(this);
@@ -27,10 +28,12 @@ class App extends Component {
           this.setState({
             messages: this.state.messages.concat({
               id: receivedMessage.id,
+              colourScheme: receivedMessage.colourScheme,
               username: receivedMessage.username,
               content: receivedMessage.content
             })
           });
+          console.log(this.state.messages);
           break;
 
         case "incomingNotification":
@@ -45,6 +48,12 @@ class App extends Component {
           });
           break;
 
+        case "colourScheme":
+          this.setState({
+            colourScheme: receivedMessage.content
+          });
+          break;
+
         default:
           throw new Error("Unknown event type " + receivedMessage.type);
       }
@@ -54,6 +63,7 @@ class App extends Component {
   composeNewMessage = message => {
     this.socket.send(JSON.stringify({
       type: "postMessage",
+      colourScheme: this.state.colourScheme,
       username: message.username,
       content: message.content
     }));
