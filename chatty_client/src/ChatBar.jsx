@@ -6,11 +6,11 @@ class ChatBar extends Component {
     super(props);
     this.state = {
       username: "Anonymous",
-      content: "",
+      content: ""
     }
-    this.enterMessage = this.enterMessage.bind(this);
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangeMessage = this.handleChangeMessage.bind(this);
+    this.enterMessage = this.enterMessage.bind(this);
 
   }
 
@@ -25,6 +25,7 @@ class ChatBar extends Component {
   enterMessage(event) {
     if (event.charCode==13) {
       this.props.composeNewMessage(this.state);
+      event.target.value = "";
     }
   }
 
@@ -36,7 +37,6 @@ class ChatBar extends Component {
             id="username"
             type="text"
             placeholder="Your Name (Optional)"
-            // value={this.props.currentUser.name}
           />
           <input onChange={this.handleChangeMessage}
           id="new-message"
