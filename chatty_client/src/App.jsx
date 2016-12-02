@@ -77,7 +77,6 @@ class App extends Component {
     }));
   }
 
-
   render() {
     return (
       <div>
@@ -86,7 +85,7 @@ class App extends Component {
           <h5>{this.state.userCounter} users online</h5>
         </nav>
         <MessageList messages={this.state.messages} notification={this.state.notification} />
-        <ChatBar composeNewMessage={this.composeNewMessage} changeUsername={this.changeUsername} />
+        <ChatBar composeNewMessage={this.composeNewMessage} displayImage={this.displayImage} changeUsername={this.changeUsername} />
       </div>
     );
   }

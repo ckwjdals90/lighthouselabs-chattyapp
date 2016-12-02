@@ -5,23 +5,28 @@ class Message extends Component {
     var style = {
       color: this.props.colourScheme
     };
-    return (
-    <div
-      className="message">
-      <span
-      className="username" style={style}>
-        {this.props.username}</span>
-      <span
-      className="content">
-        {this.props.content}</span>
-    </div>
-    );
+    if (this.props.content.endsWith(".jpg") || this.props.content.endsWith(".png") || this.props.content.endsWith(".gif")) {
+      return (
+        <div className="image">
+          <span className="username" style={style}>
+            {this.props.username}
+          </span><br/>
+          <img className="img-responsive" src={this.props.content} alt="boohoo" />
+        </div>
+      )
+    } else {
+      return (
+      <div className="message">
+        <span className="username" style={style}>
+          {this.props.username}
+        </span>
+        <span className="content">
+          {this.props.content}
+        </span>
+      </div>
+      );
+    }
   }
 }
 export default Message;
-
-
-
-
-
 

@@ -31,7 +31,6 @@ class ChatBar extends Component {
   enterMessage(event) {
     if (event.charCode==13) {
       this.props.composeNewMessage(this.state);
-      console.log(event.target.value);
       event.target.value = "";
     }
   }
