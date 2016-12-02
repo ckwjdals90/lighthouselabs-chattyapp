@@ -75,5 +75,4 @@ wss.on('connection', (ws) => {
     });
     console.log("client counter: ", wss.clients.length);
   });
-
 });

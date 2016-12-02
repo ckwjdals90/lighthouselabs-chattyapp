@@ -8,7 +8,6 @@ class App extends Component {
     this.state = {
       messages: [],
       notification: "",
-      receivedMessage: "",
       userCounter: "",
       colourScheme: ""
     };
@@ -70,7 +69,6 @@ class App extends Component {
   }
 
   changeUsername = notification => {
-    console.log(notification);
     this.socket.send(JSON.stringify({
       type: "postNotification",
       content: notification

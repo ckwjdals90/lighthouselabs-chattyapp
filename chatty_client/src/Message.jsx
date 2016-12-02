@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 
 class Message extends Component {
   render() {
-    var style = {
-      color: this.props.colourScheme
-    };
+    var style = { color: this.props.colourScheme };
     if (this.props.content.endsWith(".jpg") || this.props.content.endsWith(".png") || this.props.content.endsWith(".gif")) {
       return (
         <div className="image">
@@ -28,5 +26,5 @@ class Message extends Component {
     }
   }
 }
-export default Message;
 
+export default Message;
