@@ -25,7 +25,7 @@ wss.on('connection', (ws) => {
   for (let i = 0; i < wss.clients.length; i += 1) {
     wss.clients[i].send(JSON.stringify({
       type: "colourScheme",
-      content: colourScheme[i]
+      content: '#'+Math.floor(Math.random()*16777215).toString(16)
     }));
   }
   wss.clients.forEach((client) => {

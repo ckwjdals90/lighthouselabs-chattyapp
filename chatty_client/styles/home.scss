@@ -42,13 +42,14 @@ nav h5 {
 #message-list .message .content {
   flex: 85;
 }
-#message-list .image .img-responsive {
-  max-width: 60%;
-  padding-left: 64px;
-}
 #message-list .message.system {
   font-weight: 400;
   font-style: italic;
+  padding-left: 25px;
+}
+#message-list .image .img-responsive {
+  max-width: 60%;
+  padding-left: 64px;
 }
 footer {
   height: 41px;

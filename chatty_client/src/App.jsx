@@ -7,7 +7,6 @@ class App extends Component {
     super(props);
     this.state = {
       messages: [],
-      notification: "",
       userCounter: "",
       colourScheme: ""
     };
@@ -26,6 +25,7 @@ class App extends Component {
         case "incomingMessage":
           this.setState({
             messages: this.state.messages.concat({
+              type: receivedMessage.type,
               id: receivedMessage.id,
               colourScheme: receivedMessage.colourScheme,
               username: receivedMessage.username,
@@ -37,7 +37,10 @@ class App extends Component {
 
         case "incomingNotification":
           this.setState({
-            notification: receivedMessage.content
+            messages: this.state.messages.concat({
+              type: receivedMessage.type,
+              content: receivedMessage.content
+            })
           });
           break;
 
@@ -83,7 +86,7 @@ class App extends Component {
           <h5>{this.state.userCounter} users online</h5>
         </nav>
         <MessageList messages={this.state.messages} notification={this.state.notification} />
-        <ChatBar composeNewMessage={this.composeNewMessage} displayImage={this.displayImage} changeUsername={this.changeUsername} />
+        <ChatBar composeNewMessage={this.composeNewMessage} changeUsername={this.changeUsername} />
       </div>
     );
   }

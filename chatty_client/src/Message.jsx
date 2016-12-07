@@ -13,16 +13,25 @@ class Message extends Component {
         </div>
       )
     } else {
-      return (
-      <div className="message">
-        <span className="username" style={style}>
-          {this.props.username}
-        </span>
-        <span className="content">
-          {this.props.content}
-        </span>
-      </div>
-      );
+      switch(this.props.type) {
+        case "incomingMessage":
+          return (
+          <div className="message">
+            <span className="username" style={style}>
+              {this.props.username}
+            </span>
+            <span className="content">
+              {this.props.content}
+            </span>
+          </div>
+          );
+        case "incomingNotification":
+          return (
+            <div className="message system">
+              {this.props.content}
+            </div>
+          );
+      }
     }
   }
 }
