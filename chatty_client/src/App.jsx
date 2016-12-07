@@ -15,7 +15,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount <App />");
     this.socket = new WebSocket("ws://localhost:4000");
     console.log("Connected to Server: ", this.socket);
 
@@ -32,7 +31,6 @@ class App extends Component {
               content: receivedMessage.content
             })
           });
-          console.log(this.state.messages);
           break;
 
         case "incomingNotification":
