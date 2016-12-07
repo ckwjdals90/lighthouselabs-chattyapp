@@ -22,7 +22,9 @@ class ChatBar extends Component {
         this.props.changeUsername(this.state.username + " has changed their name to " + "Anonymous");
       }
     }
-    this.setState({username: event.target.value ? event.target.value : "Anonymous"})
+    this.setState({username: event.target.value ? event.target.value : "Anonymous"}) 
+    // suggestion: store the username in the state of App and pass it down as a prop,
+    // thus avoiding having to manage state in two places.
   }
 
   handleChangeMessage(event) {

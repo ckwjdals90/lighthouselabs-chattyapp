@@ -23,7 +23,7 @@ class App extends Component {
       switch(receivedMessage.type) {
         case "incomingMessage":
           this.setState({
-            messages: this.state.messages.concat({
+            messages: this.state.messages.concat({ // nice! it's great you used concat here!
               type: receivedMessage.type,
               id: receivedMessage.id,
               colourScheme: receivedMessage.colourScheme,
