@@ -24,7 +24,7 @@ wss.on('connection', (ws) => {
   for (let i = 0; i < wss.clients.length; i += 1) {
     wss.clients[i].send(JSON.stringify({
       type: "colourScheme",
-      content: '#'+Math.floor(Math.random()*16777215).toString(16)
+      content: '#'+Math.floor(Math.random()*16777215).toString(16) // suggest moving this to a generateRandomColor function
     }));
   }
   wss.clients.forEach((client) => {
@@ -35,7 +35,7 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('message', (message) => {
-    let parsedMessage = JSON.parse(message);
+    let parsedMessage = JSON.parse(message); // this can be a const
 
     switch(parsedMessage.type) {
       case "postMessage":
